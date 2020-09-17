@@ -1,5 +1,4 @@
-###FROM quay.io/uninett/jupyterhub-singleuser:20190911-e0a7653
-FROM quay.io/uninett/jupyterhub-singleuser:20191012-5691f5c
+FROM quay.io/uninett/jupyterhub-singleuser:20200519-4d8716b
 
 MAINTAINER Anne Fouilloux <annefou@geo.uio.no>
 
@@ -19,7 +18,54 @@ RUN /opt/conda/bin/jupyter labextension install @jupyter-widgets/jupyterlab-side
 RUN /opt/conda/bin/jupyter serverextension enable jupytext
 RUN /opt/conda/bin/jupyter nbextension install --py jupytext
 RUN /opt/conda/bin/jupyter nbextension enable --py jupytext
-RUN git clone -b v081dev https://github.com/metno/pyaerocom.git && cd pyaerocom && /opt/conda/bin/python setup.py install
+
+# Install requirements for cesm 
+ADD cesm_environment.yml cesm_environment.yml
+
+# Python packages
+RUN conda env create -f cesm_environment.yml && conda clean -yt
+RUN ["/bin/bash" , "-c", ". /opt/conda/etc/profile.d/conda.sh && \
+    conda activate cesm && \
+    python -m pip install ipykernel && \
+    ipython kernel install --name cesm && \
+    python -m ipykernel install --name=cesm && \
+    jupyter labextension install @jupyterlab/hub-extension \
+            @jupyter-widgets/jupyterlab-manager && \
+    jupyter labextension install jupyterlab-datawidgets && \
+    conda deactivate && \
+    conda init bash"]
+
+# Install requirements for pangeo 
+ADD pangeo_environment.yml pangeo_environment.yml
+
+# Python packages
+RUN conda env create -f pangeo_environment.yml && conda clean -yt
+RUN ["/bin/bash" , "-c", ". /opt/conda/etc/profile.d/conda.sh && \
+    conda activate pangeo && \
+    python -m pip install ipykernel && \
+    ipython kernel install --name pangeo && \
+    python -m ipykernel install --name=pangeo && \
+    jupyter labextension install @jupyterlab/hub-extension \
+            @jupyter-widgets/jupyterlab-manager && \
+    jupyter labextension install jupyterlab-datawidgets && \
+    conda deactivate && \
+    conda init bash"]
+
+# Install requirements for esmvaltool 
+ADD esmvaltool_environment.yml esmvaltool_environment.yml
+
+# Python packages
+RUN conda env create -f esmvaltool_environment.yml && conda clean -yt
+RUN ["/bin/bash" , "-c", ". /opt/conda/etc/profile.d/conda.sh && \
+    conda activate esmvaltool && \
+    python -m pip install ipykernel && \
+    ipython kernel install --name esmvaltool && \
+    python -m ipykernel install --name=esmvaltool && \
+    jupyter labextension install @jupyterlab/hub-extension \
+            @jupyter-widgets/jupyterlab-manager && \
+    jupyter labextension install jupyterlab-datawidgets && \
+    conda deactivate && \
+    conda init bash"]
 
 # fix permission problems (hub is then failing)
 RUN fix-permissions $HOME
