@@ -2,7 +2,6 @@ name: base
 
 channels:
   - conda-forge
-  - bioconda
   - defaults
 
 dependencies:
@@ -16,14 +15,8 @@ dependencies:
   - basemap
   - netcdf4
   - cis
-  - bokeh
-  - metpy
-  - jupyter
-  - ipykernel
-  - notebook >=5.6.0
   - scipy
   - scikit-learn
-  - jupyterlab
   - nc-time-axis
   - PyTables
   - xlrd
@@ -36,10 +29,6 @@ dependencies:
   - pillow
   - branca
   - geopandas
-  - voila
-  - nodejs
-  - pythreejs
-  - bqplot
   - psyplot
   - psy-maps 
   - psyplot-gui 
@@ -54,7 +43,6 @@ dependencies:
   - nco
   - jupytext
   - pydap
-  - rise
   - papermill
   - plotnine
   - geonum

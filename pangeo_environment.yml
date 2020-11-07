@@ -2,6 +2,7 @@ name: pangeo
 channels:
   - conda-forge
 dependencies:
+  - python>=3.7
   - nomkl
   # core scipy packages
   - numpy
@@ -87,6 +88,8 @@ dependencies:
   # misc
   - python-wget
   - prefect
+  - pyaerocom
+  - pip
   - pip:
     - intake_geopandas
     - git+https://github.com/NCAR/intake-esm.git@master
