@@ -9,6 +9,7 @@ dependencies:
   - scipy
   - matplotlib-base
   - pandas
+  - dask
   - xarray
   - sparse
   - sympy
@@ -89,6 +90,8 @@ dependencies:
   - python-wget
   - prefect
   - pyaerocom
+  - ipyparallel
+  - nc-time-axis
   - pip
   - pip:
     - intake_geopandas
