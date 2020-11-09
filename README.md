@@ -1,8 +1,6 @@
 # esm-python-analysis
 Conda environment for running ESM python analysis on NIRD Sigma2 or IaaS cloud
 
-Environment for running deep-learning python code on NIRD Sigma2
-
 If you need additional packages, please edit jupyterhub_environment.yml file and send a pull request.
 
 
