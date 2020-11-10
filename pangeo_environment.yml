@@ -93,6 +93,8 @@ dependencies:
   - ipyparallel
   - nc-time-axis
   - pip
+  - cdo
+  - xclim
   - pip:
     - intake_geopandas
     - git+https://github.com/NCAR/intake-esm.git@master
